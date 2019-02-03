@@ -35,7 +35,7 @@
 	<!-- <set name="LIME_SDL_ANGLE" value="1" if="windows" unless="static_link" /> -->
 	<set name="LIME_SDL_ANGLE" value="1" if="windows LIME_SDL_ANGLE" unless="static_link" />
 	<set name="LIME_SDL_ANGLE" value="1" if="windows angle" unless="static_link" />
-	<set name="LIME_SDL_ANGLE" value="1" if="winrt" unless="static_link" />
+	<set name="LIME_SDL_ANGLE" value="1" if="winrt" />
 	<set name="LIME_TINYFILEDIALOGS" value="1" if="windows || mac || linux" unless="winrt || emscripten" />
 	<set name="LIME_VORBIS" value="1" />
 	<!-- <set name="LIME_VPX" value="1" />
@@ -388,6 +388,7 @@
 
 			<ext value=".so" />
 			<ext value=".ndll" if="windows || mac || linux" />
+			<ext value=".dll" if="winrt" />
 
 			<section if="windows">
 
