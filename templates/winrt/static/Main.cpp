@@ -59,7 +59,7 @@ int _main(int argc, char *argv[])
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 { 
 
-  if (FAILED(Windows::Foundation::Initialize(RO_INIT_MULTITHREADED))) 
+  if (FAILED(Windows::DC::Foundation::DC::Initialize(RO_INIT_MULTITHREADED))) 
   {
       DLOG("ERROR: Main.cpp can't initialize ");
       return 1;

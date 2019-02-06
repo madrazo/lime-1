@@ -448,6 +448,7 @@ class WindowsPlatform extends PlatformTarget {
 			context.HL_FILE = targetDirectory + "/obj/ApplicationMain.hl";
 			context.CPP_DIR = targetDirectory + "/obj";
 			context.BUILD_DIR = project.app.path + "/windows" + (is64 ? "64" : "");
+			context.DC = "::";
 
 		} else {
 
@@ -665,7 +666,7 @@ class WindowsPlatform extends PlatformTarget {
 		var context = generateContext ();
 		context.OUTPUT_DIR = targetDirectory;
 
-		if (targetType == "cpp" && project.targetFlags.exists ("static")) {
+		if ((targetType == "cpp" || targetType == "winrt") && project.targetFlags.exists ("static")) {
 
 			var programFiles = project.environment.get ("ProgramFiles(x86)");
 			var hasVSCommunity = (programFiles != null && FileSystem.exists (Path.combine (programFiles, "Microsoft Visual Studio/Installer/vswhere.exe")));
@@ -688,7 +689,7 @@ class WindowsPlatform extends PlatformTarget {
 
 				if (ndll.path == null || ndll.path == "") {
 
-					context.ndlls[i].path = NDLL.getLibraryPath (ndll, "Windows" + (is64 ? "64" : ""), "lib", suffix, project.debug);
+					context.ndlls[i].path = NDLL.getLibraryPath (ndll, (targetType == "winrt" ? "WinRT":"Windows") + (is64 ? "64" : ""), "lib", suffix, project.debug);
 
 				}
 
@@ -713,8 +714,9 @@ class WindowsPlatform extends PlatformTarget {
 
 		if (targetType == "winrt") {
 
-			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx", targetDirectory + "/bin", context, false, true);
-			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/static", targetDirectory + "/obj", context, false, true);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx/assetspkg", targetDirectory + "/bin/assetspkg", context, false, true);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx/AppxManifest.xml", targetDirectory + "/bin/AppxManifest.xml", context, true, true);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/static", targetDirectory + "/obj", context, true, true);
 		
 			//Fix appxmanifest and BuildMain templates?
 			//var manifest = System.findTemplate (project.templatePaths, "winrt/appx/AppxManifest.xml");
