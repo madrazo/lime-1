@@ -714,8 +714,8 @@ class WindowsPlatform extends PlatformTarget {
 
 		if (targetType == "winrt") {
 
-			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx/assetspkg", targetDirectory + "/bin/assetspkg", context, false, true);
-			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx/AppxManifest.xml", targetDirectory + "/bin/AppxManifest.xml", context, true, true);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/assetspkg", targetDirectory + "/bin/assetspkg", context, false, true);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx", targetDirectory + "/bin", context, true, true);
 			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/static", targetDirectory + "/obj", context, true, true);
 		
 			//Fix appxmanifest and BuildMain templates?
