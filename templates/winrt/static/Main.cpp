@@ -1,4 +1,6 @@
 #include <stdbool.h>
+#include <SDL_main.h>
+#include <configs\winrt\SDL_config.h>
 #include <hxcpp.h>
 #include <wrl.h>
 
@@ -38,19 +40,43 @@
 
 extern "C" void __hxcpp_lib_main() { }
 
+extern "C" const char *hxRunLibrary ();
+extern "C" void hxcpp_set_top_of_stack ();
+//extern "C" int zlib_register_prims ();
+extern "C" int lime_register_prims ();
+::foreach ndlls::::if (registerStatics)::
+extern "C" int ::nameSafe::_register_prims ();::end::::end::
 										
 int _main(int argc, char *argv[])
 {
    HX_TOP_OF_STACK
-   hx::Boot();
+//   hx::Boot();
    try
    {
-      __boot_all();
+//      __boot_all();
 //      ::ApplicationMain_obj::main();
+        hxcpp_set_top_of_stack ();
+        
+        //zlib_register_prims ();
+        //lime_cairo_register_prims ();
+        //lime_openal_register_prims ();
+        ::foreach ndlls::::if (registerStatics)::
+        ::nameSafe::_register_prims ();::end::::end::
+        
+          const char *err = NULL;
+          err = hxRunLibrary ();
+          
+          if (err) {
+            
+            DLOG("Error: %s\n", err);
+            
+          }
+
    }
    catch (Dynamic e)
    {
-      __hx_dump_stack();
+    DLOG("Error: %s\n", err);
+//      __hx_dump_stack();
       return -1;
    }
    return 0;
@@ -68,7 +94,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     Sleep(20000);
     DLOG("HELLO WORLD");
 
-//  SDL_WinRTRunApp(_main, NULL);
+    SDL_WinRTRunApp(_main, NULL);
   return 0;
 }
 

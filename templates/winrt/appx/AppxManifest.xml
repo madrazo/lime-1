@@ -16,7 +16,7 @@
     <Resource Language="EN-US" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="ApplicationMain.exe" EntryPoint="ApplicationMain.App">
+    <Application Id="App" Executable="DisplayingABitmap.exe" EntryPoint="DisplayingABitmap.App">
       <uap:VisualElements DisplayName="Displaying a Bitmap" Square150x150Logo="assetspkg\Square150x150Logo.scale-200.png" Square44x44Logo="assetspkg\Square44x44Logo.scale-200.png" Description="Displaying a Bitmap" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="assetspkg\Wide310x150Logo.scale-200.png" />
         <uap:SplashScreen Image="assetspkg\SplashScreen.scale-200.png" />

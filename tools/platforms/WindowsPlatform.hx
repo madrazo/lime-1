@@ -170,12 +170,15 @@ class WindowsPlatform extends PlatformTarget {
 
 			}
 
-			if (targetType == "winrt" && !project.targetFlags.exists ("static")) {
+			if (targetType == "winrt") {
 
-				for (ndll in project.ndlls) {
+				if(!project.targetFlags.exists ("static")) {
 
-					ProjectHelper.copyLibrary (project, ndll, "WinRT" + (is64 ? "64" : ""), "", (ndll.haxelib != null && (ndll.haxelib.name == "hxcpp" || ndll.haxelib.name == "hxlibc")) ? ".dll" : ".ndll", applicationDirectory, project.debug, null);
+					for (ndll in project.ndlls) {
 
+						ProjectHelper.copyLibrary (project, ndll, "WinRT" + (is64 ? "64" : ""), "", (ndll.haxelib != null && (ndll.haxelib.name == "hxcpp" || ndll.haxelib.name == "hxlibc")) ? ".dll" : ".ndll", applicationDirectory, project.debug, null);
+
+					}
 				}
 
 			} else if (!project.targetFlags.exists ("static") || targetType != "cpp") {
@@ -315,14 +318,15 @@ class WindowsPlatform extends PlatformTarget {
 
 				}
 
-				var iconPath = Path.combine (applicationDirectory, "icon.ico");
 
-				if (IconHelper.createWindowsIcon (icons, iconPath) && System.hostPlatform == WINDOWS) {
+				//var iconPath = Path.combine (applicationDirectory, "icon.ico");
 
-					var templates = [ Haxelib.getPath (new Haxelib (#if lime "lime" #else "hxp" #end)) + "/templates" ].concat (project.templatePaths);
-					System.runCommand ("", System.findTemplate (templates, "bin/ReplaceVistaIcon.exe"), [ executablePath, iconPath, "1" ], true, true);
+				//if (IconHelper.createWindowsIcon (icons, iconPath) && System.hostPlatform == WINDOWS) {
 
-				}
+				//	var templates = [ Haxelib.getPath (new Haxelib (#if lime "lime" #else "hxp" #end)) + "/templates" ].concat (project.templatePaths);
+				//	System.runCommand ("", System.findTemplate (templates, "bin/ReplaceVistaIcon.exe"), [ executablePath, iconPath, "1" ], true, true);
+
+				//}
 
 			} else {
 
@@ -443,11 +447,11 @@ class WindowsPlatform extends PlatformTarget {
 			
 			context.CPP_DIR = targetDirectory;
 
-			context.NEKO_FILE = targetDirectory + "/obj/ApplicationMain.n";
-			context.NODE_FILE = targetDirectory + "/bin/ApplicationMain.js";
-			context.HL_FILE = targetDirectory + "/obj/ApplicationMain.hl";
+			//context.NEKO_FILE = targetDirectory + "/obj/ApplicationMain.n";
+			//context.NODE_FILE = targetDirectory + "/bin/ApplicationMain.js";
+			//context.HL_FILE = targetDirectory + "/obj/ApplicationMain.hl";
 			context.CPP_DIR = targetDirectory + "/obj";
-			context.BUILD_DIR = project.app.path + "/windows" + (is64 ? "64" : "");
+			context.BUILD_DIR = project.app.path + "/winrt" + (is64 ? "64" : "");
 			context.DC = "::";
 
 		} else {
