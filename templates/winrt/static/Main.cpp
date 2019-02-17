@@ -1,11 +1,28 @@
 #include <stdbool.h>
-#include <SDL_main.h>
-#include <configs\winrt\SDL_config.h>
+
+#define DECLSPEC __declspec(dllexport)
+#define SDLCALL __cdecl
+#ifdef _MSC_VER
+#pragma warning(disable:4103)
+#pragma warning(disable:4447)
+#endif
+#pragma pack(push,8)
+extern "C" {
+extern DECLSPEC int SDLCALL SDL_WinRTRunApp(int (*mainFunction)(int, char **), void * reserved);
+}
+#pragma pack(pop)
+
 #include <hxcpp.h>
 #include <wrl.h>
 
 #ifdef main
 #undef main
+#endif
+#ifndef __WINRT__
+#define __WINRT__
+#endif
+#ifndef SDL_BUILDING_WINRT
+#define SDL_BUILDING_WINRT 1
 #endif
 
 #ifndef SDL_WINRT_METADATA_FILE_AVAILABLE
@@ -15,13 +32,8 @@
 #endif
 
 #ifdef _MSC_VER
-#pragma warning(disable:4447)
-#endif
-
-#ifdef _MSC_VER
 #pragma comment(lib, "runtimeobject.lib")
 #endif
-
 
 #define DEBUG_PRINTF
 #ifdef DEBUG_PRINTF
@@ -38,63 +50,49 @@
 //#include <ApplicationMain.h>
 //#endif
 
-extern "C" void __hxcpp_lib_main() { }
-
+//extern "C" void __hxcpp_lib_main() { }
 extern "C" const char *hxRunLibrary ();
 extern "C" void hxcpp_set_top_of_stack ();
-//extern "C" int zlib_register_prims ();
-extern "C" int lime_register_prims ();
+extern "C" int zlib_register_prims ();
 ::foreach ndlls::::if (registerStatics)::
 extern "C" int ::nameSafe::_register_prims ();::end::::end::
+
 										
 int _main(int argc, char *argv[])
 {
-   HX_TOP_OF_STACK
-//   hx::Boot();
+   DLOG("HELLO WORLD");
+   //Sleep(10000);  //uncomment to attach here in debugger
+   DLOG("HELLO WORLD2");
+
+   // HX_TOP_OF_STACK
+   //   hx::Boot();
    try
    {
-//      __boot_all();
-//      ::ApplicationMain_obj::main();
-        hxcpp_set_top_of_stack ();
-        
-        //zlib_register_prims ();
-        //lime_cairo_register_prims ();
-        //lime_openal_register_prims ();
+      //boot_all();
+      //::ApplicationMain_obj::main();
+
+        hxcpp_set_top_of_stack ();  
+        zlib_register_prims ();
         ::foreach ndlls::::if (registerStatics)::
         ::nameSafe::_register_prims ();::end::::end::
         
-          const char *err = NULL;
-          err = hxRunLibrary ();
-          
-          if (err) {
-            
+        const char *err = NULL;
+        err = hxRunLibrary ();
+        if (err) {            
             DLOG("Error: %s\n", err);
-            
-          }
-
+        }
    }
    catch (Dynamic e)
    {
-    DLOG("Error: %s\n", err);
+       DLOG("Main Error\n",);
 //      __hx_dump_stack();
-      return -1;
+       return -1;
    }
    return 0;
 }
 
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 { 
-
-  if (FAILED(Windows::DC::Foundation::DC::Initialize(RO_INIT_MULTITHREADED))) 
-  {
-      DLOG("ERROR: Main.cpp can't initialize ");
-      return 1;
-  } 
-  DLOG("HELLO WORLD");
-    Sleep(20000);
-    DLOG("HELLO WORLD");
-
-    SDL_WinRTRunApp(_main, NULL);
-  return 0;
+   SDL_WinRTRunApp(_main, NULL);
+   return 0;
 }
-

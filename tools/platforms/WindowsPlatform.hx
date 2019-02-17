@@ -711,27 +711,18 @@ class WindowsPlatform extends PlatformTarget {
 		ProjectHelper.recursiveSmartCopyTemplate (project, "haxe", targetDirectory + "/haxe", context);
 		ProjectHelper.recursiveSmartCopyTemplate (project, targetType + "/hxml", targetDirectory + "/haxe", context);
 
-		if (targetType == "cpp" && project.targetFlags.exists ("static")) {
+		
 
-			ProjectHelper.recursiveSmartCopyTemplate (project, "cpp/static", targetDirectory + "/obj", context);
-		}
-
-		if (targetType == "winrt") {
+		if (targetType == "winrt" && project.targetFlags.exists ("static")) {
 
 			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/assetspkg", targetDirectory + "/bin/assetspkg", context, false, true);
 			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/appx", targetDirectory + "/bin", context, true, true);
 			ProjectHelper.recursiveSmartCopyTemplate (project, "winrt/static", targetDirectory + "/obj", context, true, true);
 		
-			//Fix appxmanifest and BuildMain templates?
-			//var manifest = System.findTemplate (project.templatePaths, "winrt/appx/AppxManifest.xml");
-			//var buildMain = System.findTemplate (project.templatePaths, "winrt/static/BuildMain.xml");
+		}
+		else if (targetType == "cpp" && project.targetFlags.exists ("static")) {
 
-			//var template = new Template (File.getContent (buildMain));
-			//var template = new Template (File.getContent (manifest));
-
-			//var temp = template.execute (context);
-			//trace(temp);
-			//sys.io.File.saveContent (targetDirectory + "/bin", temp);
+			ProjectHelper.recursiveSmartCopyTemplate (project, "cpp/static", targetDirectory + "/obj", context);
 		}
 
 		/*if (IconHelper.createIcon (project.icons, 32, 32, Path.combine (applicationDirectory, "icon.png"))) {

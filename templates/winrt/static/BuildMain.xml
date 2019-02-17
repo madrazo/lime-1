@@ -12,8 +12,6 @@
 
 		<files id="main" />
 
-		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/" />
-
 		::foreach ndlls::
 		<lib name="::path::" />::end::
 
