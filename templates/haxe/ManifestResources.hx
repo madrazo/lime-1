@@ -39,7 +39,7 @@ import sys.FileSystem;
 			rootPath = "assets/";
 			#elseif console
 			rootPath = lime.system.System.applicationDirectory;
-			#elseif (sys && windows && !cs)
+			#elseif (sys && windows && !cs && !winrt)
 			rootPath = FileSystem.absolutePath (haxe.io.Path.directory (#if (haxe_ver >= 3.3) Sys.programPath () #else Sys.executablePath () #end)) + "/";
 			#else
 			rootPath = "";

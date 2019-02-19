@@ -25,6 +25,9 @@ extern DECLSPEC int SDLCALL SDL_WinRTRunApp(int (*mainFunction)(int, char **), v
 #define SDL_BUILDING_WINRT 1
 #endif
 
+#define LIME_SDL
+#define LIME_OPENGL
+
 #ifndef SDL_WINRT_METADATA_FILE_AVAILABLE
 #ifndef __cplusplus_winrt
 #error Main.cpp must be compiled with /ZW, otherwise build errors due to missing .winmd files can occur.
