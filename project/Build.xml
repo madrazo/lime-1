@@ -32,9 +32,12 @@
 	<set name="LIME_PIXMAN" value="1" />
 	<set name="LIME_PNG" value="1" />
 	<set name="LIME_SDL" value="1" />
-	<!-- <set name="LIME_SDL_ANGLE" value="1" if="windows" unless="static_link" /> -->
+	
+	<set name="LIME_SDL_ANGLE" value="1" if="windows"/> 
+	<!--
 	<set name="LIME_SDL_ANGLE" value="1" if="windows LIME_SDL_ANGLE" unless="static_link" />
 	<set name="LIME_SDL_ANGLE" value="1" if="windows angle" unless="static_link" />
+	-->
 	<set name="LIME_SDL_ANGLE" value="1" if="winrt" />
 	<set name="LIME_TINYFILEDIALOGS" value="1" if="windows || mac || linux" unless="winrt || emscripten" />
 	<set name="LIME_VORBIS" value="1" />
@@ -72,6 +75,7 @@
 	  		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/src/common/third_party/numerics" />
 			<compilerflag value="-DANGLE_ENABLE_GLSL" />
 	   		<compilerflag value="-DANGLE_ENABLE_D3D11" />
+   			<compilerflag value="-DANGLE_ENABLE_D3D9" unless="winrt"/>
 	   		<compilerflag value="-DANGLE_ENABLE_HLSL" />
 	   		<compilerflag value="-DLIBANGLE_IMPLEMENTATION" />
 	   		<compilerflag value="-DEGLAPI=" />
