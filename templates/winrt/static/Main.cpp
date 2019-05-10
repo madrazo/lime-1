@@ -27,7 +27,7 @@ extern DECLSPEC int SDLCALL SDL_WinRTRunApp(int (*mainFunction)(int, char **), v
 
 #define LIME_SDL
 #define LIME_OPENGL
-#define LIME_CAIRO
+//#define LIME_CAIRO
 #define NATIVE_TOOLKIT_SDL_ANGLE
 
 #ifndef SDL_WINRT_METADATA_FILE_AVAILABLE
@@ -54,7 +54,7 @@ extern DECLSPEC int SDLCALL SDL_WinRTRunApp(int (*mainFunction)(int, char **), v
 extern "C" const char *hxRunLibrary ();
 extern "C" void hxcpp_set_top_of_stack ();
 extern "C" int zlib_register_prims ();
-extern "C" int lime_cairo_register_prims ();
+//extern "C" int lime_cairo_register_prims ();
 ::foreach ndlls::::if (registerStatics)::
 extern "C" int ::nameSafe::_register_prims ();::end::::end::
 
@@ -69,7 +69,7 @@ int _main(int argc, char *argv[])
    {
         hxcpp_set_top_of_stack ();  
         zlib_register_prims ();
-        lime_cairo_register_prims ();
+//        lime_cairo_register_prims ();
         ::foreach ndlls::::if (registerStatics)::
         ::nameSafe::_register_prims ();::end::::end::
         

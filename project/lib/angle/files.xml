@@ -1,0 +1,357 @@
+<xml>
+
+<include name="${HXCPP}/build-tool/BuildCommon.xml" unless="build_common_included" />
+
+<set name="ANGLE_DIR" value="${NATIVE_TOOLKIT_PATH}/angle" unless="ANGLE_DIR" />
+
+<files id="native-toolkit-angle-depends"   >
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/EGL/egl.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/EGL/eglext.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/EGL/eglplatform.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES2/gl2.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES2/gl2ext.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES2/gl2platform.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES3/gl3.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES3/gl31.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES3/gl32.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLES3/gl3platform.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/GLSLANG/ShaderLang.h" />
+   <depend name="${NATIVE_TOOLKIT_PATH}/angle/include/KHR/khrplatform.h" />
+</files>
+
+<files id="native-toolkit-angle" >
+   <cache value="1" />
+   <tag value="${NATIVE_TOOLKIT_OPTIM_TAG}" if="NATIVE_TOOLKIT_OPTIM_TAG" />
+   <depend files="native-toolkit-angle-depends" />
+
+   <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/include" />
+   <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/src" />
+   <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/src/common/third_party/numerics" />
+   <compilerflag value="-DANGLE_ENABLE_GLSL" />
+   <compilerflag value="-DANGLE_ENABLE_D3D9" unless="winrt"/>
+   <compilerflag value="-DANGLE_ENABLE_D3D11" />
+   <compilerflag value="-DANGLE_ENABLE_HLSL" />
+   <compilerflag value="-DLIBANGLE_IMPLEMENTATION" />
+   <compilerflag value="-DEGLAPI=" />
+   <compilerflag value="-DNOMINMAX" />
+
+
+   <cache value="1" />
+
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/angletypes.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/AttributeMap.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Buffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Caps.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Compiler.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Config.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Context.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/ContextState.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Debug.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Device.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Display.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Error.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/es3_copy_conversion_table_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Fence.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/formatutils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/format_map_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Framebuffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/FramebufferAttachment.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/HandleAllocator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/HandleRangeAllocator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Image.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/ImageIndex.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/IndexRangeCache.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/LoggingAnnotator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Path.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Platform.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Program.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Query.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/queryconversions.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/queryutils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Renderbuffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/ContextImpl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/BufferD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/CompilerD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Blit11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Buffer11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Clear11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Context11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/DebugAnnotator11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/dxgi_format_map_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/dxgi_support_table.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Fence11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/formatutils11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Framebuffer11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Image11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/IndexBuffer11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/InputLayoutCache.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/PixelTransfer11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Query11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Renderer11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/renderer11_utils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/RenderStateCache.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/RenderTarget11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/ShaderExecutable11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/StateManager11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/StreamProducerNV12.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/SwapChain11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/TextureStorage11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/texture_format_table.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/texture_format_table_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/TransformFeedback11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/Trim11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/VertexArray11.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/VertexBuffer11.cpp" />
+
+      <section if="winrt">
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/winrt/CoreWindowNativeWindow.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/winrt/InspectableNativeWindow.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/winrt/NativeWindow11WinRT.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/winrt/SwapChainPanelNativeWindow.cpp" />
+      </section>
+
+      <section unless="winrt">
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d11/win32/NativeWindow11Win32.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Blit9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Buffer9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Context9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/DebugAnnotator9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Fence9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/formatutils9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Framebuffer9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Image9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/IndexBuffer9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/NativeWindow9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Query9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/Renderer9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/renderer9_utils.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/RenderTarget9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/ShaderExecutable9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/StateManager9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/SwapChain9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/TextureStorage9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/VertexBuffer9.cpp" />
+         <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/d3d9/VertexDeclarationCache.cpp" />
+      </section>
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/DeviceD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/DisplayD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/DynamicHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/EGLImageD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/FramebufferD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/HLSLCompiler.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/ImageD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/IndexBuffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/IndexDataManager.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/NativeWindowD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/ProgramD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/RenderbufferD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/RendererD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/RenderTargetD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/ShaderD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/ShaderExecutableD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/SurfaceD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/SwapChainD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/TextureD3D.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/VertexBuffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/d3d/VertexDataManager.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/DeviceImpl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/DisplayImpl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/driver_utils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/Format_table_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/load_functions_table_autogen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/renderer_utils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/SurfaceImpl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/TextureImpl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/ResourceManager.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Sampler.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Shader.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/State.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Stream.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Surface.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Texture.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Thread.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/TransformFeedback.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/Uniform.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/UniformLinker.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/validationEGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/validationES.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/validationES2.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/validationES3.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/validationES31.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/VaryingPacking.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/VertexArray.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/VertexAttribute.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/WorkerThread.cpp" />
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/angleutils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/debug.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/event_tracer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/Float16ToFloat32.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/mathutil.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/MemoryBuffer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/string_utils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/system_utils_win.cpp" unless="winrt" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/tls.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/common/utilities.cpp" />
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/image_util/copyimage.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/image_util/imageformats.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/image_util/loadimage.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/image_util/loadimage_etc.cpp" />
+
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/DiagnosticsBase.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/DirectiveHandlerBase.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/DirectiveParser.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/ExpressionParser.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Input.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Lexer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Macro.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/MacroExpander.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Preprocessor.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Token.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/preprocessor/Tokenizer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/AddAndTrueToLoopCondition.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/AddDefaultReturnStatements.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ArrayReturnValueToOutParameter.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ASTMetadataHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/blocklayout.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/blocklayoutHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/BreakVariableAliasingInInnerLoops.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/BuiltInFunctionEmulator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/BuiltInFunctionEmulatorGLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/BuiltInFunctionEmulatorHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Cache.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/CallDAG.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/CodeGen.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Compiler.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ConstantUnion.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/DeferGlobalInitializers.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Diagnostics.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/DirectiveHandler.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/EmulateGLFragColorBroadcast.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/EmulatePrecision.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ExpandIntegerPowExpressions.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ExtensionGLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/FindSymbolNode.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/FlagStd140Structs.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/glslang_lex.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/glslang_tab.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/InfoSink.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Initialize.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/InitializeDll.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/InitializeVariables.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Intermediate.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/IntermNode.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/IntermNodePatternMatcher.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/intermOut.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/IntermTraverse.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Operator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/OutputESSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/OutputGLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/OutputGLSLBase.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/OutputHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/OutputVulkanGLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ParseContext.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/PoolAlloc.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/PruneEmptyDeclarations.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/PrunePureLiteralStatements.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/QualifierTypes.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RecordConstantPrecision.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RegenerateStructNames.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RemoveDynamicIndexing.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RemoveInvariantDeclaration.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RemovePow.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RemoveSwitchFallThrough.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RewriteDoWhile.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RewriteElseBlocks.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RewriteTexelFetchOffset.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RewriteUnaryMinusOperatorFloat.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/RewriteUnaryMinusOperatorInt.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ScalarizeVecAndMatConstructorArgs.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SearchSymbol.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SeparateArrayInitialization.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SeparateDeclarations.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SeparateExpressionsReturningArrays.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ShaderLang.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ShaderVars.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SimplifyLoopConditions.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SplitSequenceOperator.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/StructureHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/SymbolTable.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/TextureFunctionHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/TranslatorESSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/TranslatorGLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/TranslatorHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/TranslatorVulkan.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/Types.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/UnfoldShortCircuitAST.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/UnfoldShortCircuitToIf.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/UniformHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/UseInterfaceBlockFields.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/util.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/UtilsHLSL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateGlobalInitializer.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateLimitations.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateMaxParameters.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateMultiviewWebGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateOutputs.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/ValidateSwitch.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/VariableInfo.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/VariablePacker.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/compiler/translator/VersionGLSL.cpp" />
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/third_party/compiler/ArrayBoundsClamper.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/third_party/murmurhash/MurmurHash3.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/third_party/systeminfo/SystemInfo.cpp" />
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libEGL/libEGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/DisplayEGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/FunctionsEGL.cpp" />
+      <!--<file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/ozone/DisplayOzone.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/FunctionsEGLDL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/ozone/SurfaceOzone.cpp" />-->>
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/PbufferSurfaceEGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/SurfaceEGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/egl/WindowSurfaceEGL.cpp" />
+
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/renderergl_utils.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/formatutilsgl.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/VertexArrayGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/TransformFeedbackGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/TextureGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/SurfaceGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/StateManagerGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/ShaderGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/SamplerGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/RendererGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/RenderbufferGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/QueryGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/ProgramGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/PathGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/FunctionsGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/FramebufferGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/FenceSyncGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/FenceNVGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/DisplayGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/ContextGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/CompilerGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/BufferGL.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libANGLE/renderer/gl/BlitGL.cpp" />
+
+
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/libGLESv2.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/global_state.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_gles_3_1.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_gles_3_0.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_gles_2_0_ext.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_gles_2_0.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_egl_ext.cpp" />
+      <file name="${NATIVE_TOOLKIT_PATH}/angle/src/libGLESv2/entry_points_egl.cpp" />
+
+</files>
+
+</xml>

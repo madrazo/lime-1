@@ -26,6 +26,9 @@
 #include <SDL.h>
 #endif
 
+#if defined(NATIVE_TOOLKIT_SDL_ANGLE) && !defined(NATIVE_TOOLKIT_STATIC_ANGLE)
+#define LIME_ANGLE_DLL
+#endif
 
 namespace lime {
 
@@ -36,7 +39,7 @@ namespace lime {
 	int OpenGLBindings::defaultRenderbuffer = 0;
 	void* OpenGLBindings::handle = 0;
 
-	#ifdef NATIVE_TOOLKIT_SDL_ANGLE
+	#ifdef LIME_ANGLE_DLL
 	void* OpenGLBindings::eglHandle = 0;
 	#endif
 
@@ -5316,10 +5319,10 @@ namespace lime {
 
 			#endif
 
-			#ifdef NATIVE_TOOLKIT_SDL_ANGLE
+			#ifdef LIME_ANGLE_DLL
 
 			#ifdef HX_WINRT
-			return true;
+			return false;
 			#else
 			OpenGLBindings::eglHandle = LoadLibraryW (L"libegl.dll");
 

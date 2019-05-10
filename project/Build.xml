@@ -54,12 +54,32 @@
 
 	<set name="NATIVE_TOOLKIT_SDL_STATIC" value="1" />
 	<set name="NATIVE_TOOLKIT_SDL_ANGLE" value="1" if="LIME_SDL_ANGLE" />
+	<set name="NATIVE_TOOLKIT_ANGLE" value="1" if="LIME_SDL_ANGLE" />
+	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE static_link" />
 
 	<files id="lime">
 
 		<compilerflag value="-Iinclude" />
 
 		<file name="src/ExternalInterface.cpp" />
+
+		<compilerflag value="-DNATIVE_TOOLKIT_SDL_ANGLE" if="NATIVE_TOOLKIT_SDL_ANGLE" />
+
+		<section if="NATIVE_TOOLKIT_STATIC_ANGLE">
+
+			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/include" />
+			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/src" />
+	  		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/angle/src/common/third_party/numerics" />
+			<compilerflag value="-DANGLE_ENABLE_GLSL" />
+	   		<compilerflag value="-DANGLE_ENABLE_D3D11" />
+	   		<compilerflag value="-DANGLE_ENABLE_HLSL" />
+	   		<compilerflag value="-DLIBANGLE_IMPLEMENTATION" />
+	   		<compilerflag value="-DEGLAPI=" />
+	   		<compilerflag value="-DNOMINMAX" />
+			<compilerflag value="-DNATIVE_TOOLKIT_STATIC_ANGLE"/>
+
+		</section>
+
 
 		<section if="LIME_CAIRO">
 
@@ -240,7 +260,6 @@
 			</section>
 
 			<compilerflag value="-DLIME_SDL" />
-			<compilerflag value="-DNATIVE_TOOLKIT_SDL_ANGLE" if="NATIVE_TOOLKIT_SDL_ANGLE" />
 			<compilerflag value="-D__IPHONEOS__" if="ios || tvos" />
 			<compilerflag value="-D__APPLETVOS__" if="tvos" />
 			<compilerflag value="-DAPPLETV" if="tvos" />
@@ -351,6 +370,7 @@
 	<include name="lib/vpx/files.xml" />
 	<include name="lib/webm/files.xml" />
 	<include name="lib/zlib/files.xml" />
+	<include name="lib/angle/files.xml" if="LIME_SDL_ANGLE"/>
 
 	<set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
 	<set name="LIBSUFFIX" value="${HX_TARGET_SUFFIX}" if="HX_TARGET_SUFFIX" />
@@ -384,6 +404,7 @@
 		<files id="native-toolkit-vpx" if="LIME_VPX" />
 		<files id="native-toolkit-webm" if="LIME_WEBM" />
 		<files id="native-toolkit-zlib" if="LIME_ZLIB" />
+		<files id="native-toolkit-angle" if="NATIVE_TOOLKIT_STATIC_ANGLE" />
 
 		<section unless="static_link">
 
@@ -393,7 +414,7 @@
 			<!-- TODO: Support single binary? -->
 			<ext value=".hdll" if="LIME_HASHLINK" />
 
-			<section if="windows">
+			<section if="windows" unless="winrt">
 
 				<lib name="gdi32.lib" />
 				<lib name="opengl32.lib" />
@@ -415,16 +436,23 @@
 				<lib name="rpcrt4.lib" if="LIME_HARFBUZZ" />
 				<lib name="dwrite.lib" if="LIME_HARFBUZZ" />
 
-				<lib name="comsuppw.lib" unless="winrt" />
+				<lib name="comsuppw.lib" />
 
-				<lib name="D3D11.lib" if="winrt" />
-				<lib name="RuntimeObject.lib" if="winrt" />
-				<lib name="Xinput.lib" if="winrt" />
-				<lib name="DXGI.lib" if="winrt" />
 
 				<lib name="-libpath:../templates/bin/hl/windows" if="LIME_HASHLINK" />
 				<lib name="libhl.lib" if="LIME_HASHLINK" />
 				<!-- <lib name="-delayload:libhl.dll" /> -->
+			</section>
+
+			<section if="winrt">
+
+				<lib name="kernel32.lib" />
+				<lib name="d3d11.lib" />
+				<lib name="Xaudio2.lib" />
+				<lib name="Xinput.lib" />
+				<lib name="DXGI.lib" />
+				<lib name="Dwrite.lib" />
+				<lib name="D3dcompiler.lib" />
 
 			</section>
 
