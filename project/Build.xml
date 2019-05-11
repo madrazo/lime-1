@@ -81,6 +81,7 @@
 	   		<compilerflag value="-DEGLAPI=" />
 	   		<compilerflag value="-DNOMINMAX" />
 			<compilerflag value="-DNATIVE_TOOLKIT_STATIC_ANGLE"/>
+			<compilerflag value="-DSDL_VIDEO_STATIC_ANGLE"/>
 
 		</section>
 
