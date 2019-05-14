@@ -369,6 +369,11 @@ class WindowsPlatform extends PlatformTarget
 
 					if (noOutput) return;
 
+					if (project.targetFlags.exists("angle"))
+					{
+						flags.push("-DNATIVE_TOOLKIT_STATIC_ANGLE");
+					}
+
 					CPPHelper.compile(project, targetDirectory + "/obj", flags.concat(["-Dstatic_link"]));
 					CPPHelper.compile(project, targetDirectory + "/obj", flags, "BuildMain.xml");
 

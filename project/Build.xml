@@ -33,12 +33,9 @@
 	<set name="LIME_PNG" value="1" />
 	<set name="LIME_SDL" value="1" />
 	
-	<set name="LIME_SDL_ANGLE" value="1" if="windows LIME_SDL_ANGLE" unless="static_link" />
-	<set name="LIME_SDL_ANGLE" value="1" if="windows angle" unless="static_link" />
+	<set name="LIME_SDL_ANGLE" value="1" if="windows" unless="static_link" />
+	<set name="LIME_SDL_ANGLE" value="1" if="windows angle" /> <!-- -angle forces static angle -->
 	<set name="LIME_SDL_ANGLE" value="1" if="winrt" />
-
-	<!-- force angle -->
-	<set name="LIME_SDL_ANGLE" value="1" if="windows"/> 
 
 	<set name="LIME_TINYFILEDIALOGS" value="1" if="windows || mac || linux" unless="winrt || emscripten" />
 	<set name="LIME_VORBIS" value="1" />
@@ -58,11 +55,10 @@
 
 	<set name="NATIVE_TOOLKIT_SDL_STATIC" value="1" />
 	<set name="NATIVE_TOOLKIT_SDL_ANGLE" value="1" if="LIME_SDL_ANGLE" />
-	<set name="NATIVE_TOOLKIT_ANGLE" value="1" if="LIME_SDL_ANGLE" />
-	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE static_link" />
+	<set name="NATIVE_TOOLKIT_ANGLE" value="1" if="NATIVE_TOOLKIT_SDL_ANGLE" />
 
-	<!-- force static angle for non static (avoid dll) -->
-	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE" />
+	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE angle" /> <!-- -angle forces static angle -->
+	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="winrt" />
 
 	<files id="lime">
 
