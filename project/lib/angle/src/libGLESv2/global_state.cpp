@@ -126,6 +126,7 @@ bool TerminateProcess()
 
 }  // namespace egl
 
+#ifndef SDL_VIDEO_STATIC_ANGLE
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD reason, LPVOID)
 {
     switch (reason)
@@ -145,4 +146,5 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD reason, LPVOID)
 
     return TRUE;
 }
+#endif
 #endif  // ANGLE_PLATFORM_WINDOWS

@@ -33,12 +33,13 @@
 	<set name="LIME_PNG" value="1" />
 	<set name="LIME_SDL" value="1" />
 	
-	<set name="LIME_SDL_ANGLE" value="1" if="windows"/> 
-	<!--
 	<set name="LIME_SDL_ANGLE" value="1" if="windows LIME_SDL_ANGLE" unless="static_link" />
 	<set name="LIME_SDL_ANGLE" value="1" if="windows angle" unless="static_link" />
-	-->
 	<set name="LIME_SDL_ANGLE" value="1" if="winrt" />
+
+	<!-- force angle -->
+	<set name="LIME_SDL_ANGLE" value="1" if="windows"/> 
+
 	<set name="LIME_TINYFILEDIALOGS" value="1" if="windows || mac || linux" unless="winrt || emscripten" />
 	<set name="LIME_VORBIS" value="1" />
 	<!-- <set name="LIME_VPX" value="1" />
@@ -59,6 +60,9 @@
 	<set name="NATIVE_TOOLKIT_SDL_ANGLE" value="1" if="LIME_SDL_ANGLE" />
 	<set name="NATIVE_TOOLKIT_ANGLE" value="1" if="LIME_SDL_ANGLE" />
 	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE static_link" />
+
+	<!-- force static angle for non static (avoid dll) -->
+	<set name="NATIVE_TOOLKIT_STATIC_ANGLE" value="1" if="LIME_SDL_ANGLE" />
 
 	<files id="lime">
 
@@ -375,7 +379,7 @@
 	<include name="lib/vpx/files.xml" />
 	<include name="lib/webm/files.xml" />
 	<include name="lib/zlib/files.xml" />
-	<include name="lib/angle/files.xml" if="LIME_SDL_ANGLE"/>
+	<include name="lib/angle/files.xml" if="NATIVE_TOOLKIT_STATIC_ANGLE"/>
 
 	<set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
 	<set name="LIBSUFFIX" value="${HX_TARGET_SUFFIX}" if="HX_TARGET_SUFFIX" />
@@ -422,7 +426,7 @@
 			<section if="windows" unless="winrt">
 
 				<lib name="gdi32.lib" />
-				<lib name="opengl32.lib" />
+				<lib name="opengl32.lib" unless="NATIVE_TOOLKIT_STATIC_ANGLE"/>
 				<lib name="user32.lib" />
 				<lib name="kernel32.lib" />
 				<lib name="advapi32.lib" />
@@ -442,7 +446,7 @@
 				<lib name="dwrite.lib" if="LIME_HARFBUZZ" />
 
 				<lib name="comsuppw.lib" />
-
+				<lib name="d3d9.lib" if="NATIVE_TOOLKIT_STATIC_ANGLE"/>
 
 				<lib name="-libpath:../templates/bin/hl/windows" if="LIME_HASHLINK" />
 				<lib name="libhl.lib" if="LIME_HASHLINK" />
