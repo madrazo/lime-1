@@ -68,6 +68,9 @@ class WindowsPlatform extends PlatformTarget
 		else if (project.targetFlags.exists("winrt"))
 		{
 			targetType = "winrt";
+			is64 = true;
+			//force static for now
+			project.targetFlags.set("static","1");
 		}
 		else
 		{
@@ -76,9 +79,13 @@ class WindowsPlatform extends PlatformTarget
 
 		for (architecture in project.architectures)
 		{
-			if ((targetType == "cpp" || targetType == "winrt") && architecture == Architecture.X64)
+			if (targetType == "cpp" && architecture == Architecture.X64)
 			{
 				is64 = true;
+			}
+			else if (targetType == "winrt" && architecture == Architecture.X86)
+			{
+				is64 = false;
 			}
 		}
 
@@ -527,7 +534,7 @@ class WindowsPlatform extends PlatformTarget
 			// so that it can be debugged in a default "rebuild"
 
 			if (!targetFlags.exists("32")
-				&& System.hostArchitecture == X64
+				&& (System.hostArchitecture == X64 || targetType == "winrt")
 				&& (command != "rebuild" || targetType == "cpp" || targetType == "winrt")
 				&& targetType != "hl")
 			{
@@ -1174,13 +1181,17 @@ class WindowsPlatform extends PlatformTarget
 			{
 				if (sys.FileSystem.exists(appxDir+"scripts/"+pfxFileName))
 				{
+					if(certificatePwd==null || certificatePwd.length==0)
+					{
+						certificatePwd = "openflexample";
+					}
 					//apply certificate
 					Log.info("Pfx cert found: path: " +appxDir+"scripts/"+pfxFileName+", pwd:"+certificatePwd);
 				}
 				else
 				{
 					//create certificate
-					Log.warn("Warn: certificate " +pfxPath+" not found, run the following command to create a new one:");
+					Log.info("\n\n***Certificate " +pfxPath+" not found, copy-paste and run the following command to create a new one, and try again:\n");
 					//copyTemplateDir( "winrt/scripts", applicationDirectory+"/.." );
 
 					//New certificate, calls powershell script on elevated mode
@@ -1189,7 +1200,7 @@ class WindowsPlatform extends PlatformTarget
 
 					//var cmd = "\"cd "+sys.FileSystem.absolutePath(applicationDirectory)+"/../scripts;Start-Process powershell -verb runas -ArgumentList \'-file .\\newcertificate.ps1\'\"";
 
-					var cmd = "-Command \"Start-Process powershell \\\"-ExecutionPolicy Bypass -NoProfile -NoExit -Command `\\\"cd \\`\\\"E:/openfl/BunnyMark/Export/winrt/bin/../scripts\\`\\\"; & \\`\\\".\\newcertificate.ps1\\`\\\"`\\\"\\\" -Verb RunAs\"";
+					var cmd = "-Command \"Start-Process powershell \\\"-ExecutionPolicy Bypass -NoProfile -NoExit -Command `\\\"cd \\`\\\""+sys.FileSystem.absolutePath(applicationDirectory)+"/../scripts\\`\\\"; & \\`\\\".\\newcertificate.ps1\\`\\\"`\\\"\\\" -Verb RunAs\"";
 					Log.info("powershell "+cmd);
 
 					#if 0
@@ -1219,10 +1230,17 @@ class WindowsPlatform extends PlatformTarget
 
 				if(appxDir+"scripts/"+pfxFileName != pfxPath)
 				{
-					System.copyFile(appxDir+"scripts/"+pfxFileName, pfxPath);
 					if (!sys.FileSystem.exists(pfxPath))
 					{
-						Log.error("could not copy "+appxDir+pfxFileName+" to "+pfxPath);
+						pfxPath = appxDir+"scripts/"+pfxFileName;
+					}
+					else
+					{
+						System.copyFile(appxDir+"scripts/"+pfxFileName, pfxPath);
+						if (!sys.FileSystem.exists(pfxPath))
+						{
+							Log.error("could not copy "+appxDir+pfxFileName+" to "+pfxPath);
+						}
 					}
 				}
 
@@ -1239,9 +1257,14 @@ class WindowsPlatform extends PlatformTarget
 				if (process4.exitCode() != 0) {
 					var message = process4.stderr.readAll().toString();
 					Log.error("Error signing appx. " + message);
+					Log.error("Make sure that the Publisher name (CN in AppxManifest.xml) is the same as the certificate's publisher (newcertificate.ps1)");
 				}
 				Log.info("\n\n***Double click "+pfxPath+" to setup certificate (Local machine, Place all certificates in the following store->Trusted People)\n");
 					process4.close();
+			}
+			else
+			{
+				Log.error("Couldn't sign "+project.app.file+".Appx with " + pfxPath +" password:"+certificatePwd);
 			}
 		}
 	}
