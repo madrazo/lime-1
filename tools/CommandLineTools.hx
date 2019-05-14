@@ -888,6 +888,7 @@ class CommandLineTools
 			Log.println("  \x1b[1mtvos\x1b[0m -- Create a tvOS application");
 			// Log.println ("  \x1b[1mwebos\x1b[0m -- Create a webOS application");
 			Log.println("  \x1b[1mwindows\x1b[0m -- Create a Windows application");
+			Log.println("  \x1b[1mwinrt\x1b[0m -- Create a C++ Windows Universal (XBox One) application");
 
 			Log.println("");
 			Log.println(" " + Log.accentColor + "Target Aliases:" + Log.resetColor);
@@ -962,6 +963,8 @@ class CommandLineTools
 			Log.println("  \x1b[3m(ios|android)\x1b[0m \x1b[1m-armv7\x1b[0m -- Compile for ARMv7 instead of the OS defaults");
 			Log.println("  \x1b[3m(ios|android)\x1b[0m \x1b[1m-armv7s\x1b[0m -- Compile for ARMv7s instead of the OS defaults");
 			Log.println("  \x1b[3m(ios)\x1b[0m \x1b[1m-arm64\x1b[0m -- Compile for ARM64 instead of the OS defaults");
+			Log.println("  \x1b[3m(windows)\x1b[0m \x1b[1m-angle\x1b[0m -- Compile angle as static library");
+			Log.println("  \x1b[3m(winrt)\x1b[0m \x1b[1m-appx\x1b[0m -- Pack winrt appx file");
 		}
 
 		if (isProjectCommand)
